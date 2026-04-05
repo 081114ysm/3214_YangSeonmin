@@ -26,6 +26,7 @@ export default function QnAPage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [detail, setDetail] = useState<Question | null>(null);
   const [answerContent, setAnswerContent] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     loadQuestions();
@@ -36,7 +37,19 @@ export default function QnAPage() {
   };
 
   const handleSubmit = async () => {
-    if (!title.trim() || !content.trim()) return;
+    setError("");
+    if (!title.trim()) {
+      setError("제목을 입력해주세요");
+      return;
+    }
+    if (title.trim().length < 2) {
+      setError("제목은 2자 이상이어야 합니다");
+      return;
+    }
+    if (!content.trim()) {
+      setError("내용을 입력해주세요");
+      return;
+    }
     try {
       await api("/qna", {
         method: "POST",
@@ -44,9 +57,10 @@ export default function QnAPage() {
       });
       setTitle("");
       setContent("");
+      setError("");
       loadQuestions();
-    } catch {
-      alert("로그인이 필요합니다");
+    } catch (err: any) {
+      setError(err.message || "로그인이 필요합니다");
     }
   };
 
@@ -62,7 +76,11 @@ export default function QnAPage() {
   };
 
   const handleAnswer = async () => {
-    if (!answerContent.trim() || !selectedId) return;
+    if (!answerContent.trim()) {
+      alert("답변 내용을 입력해주세요");
+      return;
+    }
+    if (!selectedId) return;
     try {
       await api("/qna/answer", {
         method: "POST",
@@ -71,8 +89,8 @@ export default function QnAPage() {
       setAnswerContent("");
       const data = await api(`/qna/${selectedId}`);
       setDetail(data);
-    } catch {
-      alert("로그인이 필요합니다");
+    } catch (err: any) {
+      alert(err.message || "로그인이 필요합니다");
     }
   };
 
@@ -83,11 +101,16 @@ export default function QnAPage() {
 
         <div className="bg-white rounded-lg shadow p-6 mb-8">
           <h2 className="font-bold text-lg mb-4">질문 작성</h2>
+          {error && (
+            <div className="mb-3 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg">
+              {error}
+            </div>
+          )}
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="제목"
+            placeholder="제목 (2자 이상)"
             className="w-full px-4 py-2 border rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <textarea
@@ -125,7 +148,9 @@ export default function QnAPage() {
 
                   {detail.answers && detail.answers.length > 0 && (
                     <div className="space-y-2">
-                      <p className="font-semibold text-sm text-gray-500">답변 {detail.answers.length}개</p>
+                      <p className="font-semibold text-sm text-gray-500">
+                        답변 {detail.answers.length}개
+                      </p>
                       {detail.answers.map((a) => (
                         <div key={a.id} className="bg-white p-3 rounded shadow-sm">
                           <div className="flex justify-between text-sm text-gray-400 mb-1">

@@ -49,8 +49,8 @@ export default function DashboardPage() {
   const formatTime = (seconds: number) => {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
-    if (h > 0) return `${h}시간 ${m}분`;
-    return `${m}분`;
+    const s = Math.round(seconds % 60);
+    return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   };
 
   if (!user) return <p className="p-8 text-gray-500">로딩 중...</p>;

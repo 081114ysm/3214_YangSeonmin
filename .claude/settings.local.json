@@ -12,7 +12,14 @@
       "Bash(curl:*)",
       "Bash(npx next:*)",
       "Bash(\"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql\" -u root -p081114 -e \"DROP DATABASE IF EXISTS devfocus;\")",
-      "Bash(\"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql\" -u root -p081114 --default-character-set=utf8mb4)"
+      "Bash(\"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql\" -u root -p081114 --default-character-set=utf8mb4)",
+      "Bash(node -e \"import express from 'express'; console.log\\('Express version:', express?.version || 'unknown'\\);\")",
+      "Bash(node -e \"const p = require\\('./node_modules/express/package.json'\\); console.log\\(p.version\\);\")",
+      "Bash(taskkill.exe //F //IM node.exe)",
+      "Read(//c/Program Files \\(x86\\)/Microsoft/Edge/Application/**)",
+      "Read(//c/Program Files/Microsoft/Edge/Application/**)",
+      "Bash(where.exe msedge:*)",
+      "Bash(/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe:*)"
     ]
   }
 }

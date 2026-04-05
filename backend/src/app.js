@@ -7,10 +7,16 @@ import courseRoutes from "./routes/courses.js";
 import progressRoutes from "./routes/progress.js";
 import focusRoutes from "./routes/focus.js";
 import qnaRoutes from "./routes/qna.js";
+import lessonRoutes from "./routes/lessons.js";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
@@ -19,5 +25,6 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/focus", focusRoutes);
 app.use("/api/qna", qnaRoutes);
+app.use("/api/lessons", lessonRoutes);
 
 app.listen(3001, () => console.log("server on 3001"));

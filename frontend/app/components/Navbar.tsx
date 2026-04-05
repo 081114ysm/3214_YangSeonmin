@@ -2,14 +2,26 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { logout } from "@/lib/api";
+import { usePathname } from "next/navigation";
+import { api, logout } from "@/lib/api";
 
 export default function Navbar() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [nickname, setNickname] = useState<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
-    setLoggedIn(!!localStorage.getItem("token"));
-  }, []);
+    const token = localStorage.getItem("token");
+    if (token) {
+      api("/users/me")
+        .then((user) => setNickname(user.nickname))
+        .catch(() => {
+          localStorage.removeItem("token");
+          setNickname(null);
+        });
+    } else {
+      setNickname(null);
+    }
+  }, [pathname]);
 
   return (
     <nav className="bg-white shadow sticky top-0 z-50">
@@ -27,11 +39,12 @@ export default function Navbar() {
           <Link href="/qna" className="hover:text-blue-600 transition">
             Q&A
           </Link>
-          {loggedIn ? (
+          {nickname ? (
             <>
               <Link href="/dashboard" className="hover:text-blue-600 transition">
                 대시보드
               </Link>
+              <span className="text-blue-600 font-semibold">{nickname}님</span>
               <button
                 onClick={logout}
                 className="px-4 py-1.5 bg-gray-200 rounded-lg hover:bg-gray-300 transition"
