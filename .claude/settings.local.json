@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mysql -u root -p081114)",
+      "Read(//c/Program Files/MySQL//**)",
+      "Read(//c/Program Files \\(x86\\)/MySQL//**)",
+      "Bash(where.exe mysql:*)",
+      "Bash(/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql:*)",
+      "Bash(node src/app.js)",
+      "Bash(curl -s http://localhost:3001/api/courses)",
+      "Bash(curl -s http://localhost:3001/api/courses/1)",
+      "Bash(curl:*)",
+      "Bash(npx next:*)",
+      "Bash(\"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql\" -u root -p081114 -e \"DROP DATABASE IF EXISTS devfocus;\")",
+      "Bash(\"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql\" -u root -p081114 --default-character-set=utf8mb4)"
+    ]
+  }
+}
