@@ -8,6 +8,7 @@ import progressRoutes from "./routes/progress.js";
 import focusRoutes from "./routes/focus.js";
 import qnaRoutes from "./routes/qna.js";
 import lessonRoutes from "./routes/lessons.js";
+import snippetRoutes from "./routes/snippets.js";
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use("/api/progress", progressRoutes);
 app.use("/api/focus", focusRoutes);
 app.use("/api/qna", qnaRoutes);
 app.use("/api/lessons", lessonRoutes);
+app.use("/api/snippets", snippetRoutes);
 
 app.listen(3001, () => console.log("server on 3001"));

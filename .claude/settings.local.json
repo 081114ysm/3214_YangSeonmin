@@ -19,7 +19,15 @@
       "Read(//c/Program Files \\(x86\\)/Microsoft/Edge/Application/**)",
       "Read(//c/Program Files/Microsoft/Edge/Application/**)",
       "Bash(where.exe msedge:*)",
-      "Bash(/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe:*)"
+      "Bash(/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe:*)",
+      "Bash(C:\\\\Program Files\\\\MySQL\\\\MySQL Server 8.0\\\\bin\\\\mysql:*)",
+      "Bash(node -e ':*)",
+      "Bash(npm install:*)",
+      "Bash(wait)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(mysql:*)",
+      "Read(//c/xampp/mysql/bin/**)",
+      "Bash(/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe:*)"
     ]
   }
 }

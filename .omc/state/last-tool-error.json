@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"\\\"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql\\\" -u root -p081114 < D:/developdlsrkd/backend/src/config/schema.sql 2>&1\",\"timeout\":15000}",
-  "error": "Exit code 1\nmysql: [Warning] Using a password on the command line interface can be insecure.\r\nERROR 1054 (42S22) at line 77: Unknown column 'order' in 'field list'",
-  "timestamp": "2026-04-05T13:12:34.156Z",
-  "retry_count": 2
-}

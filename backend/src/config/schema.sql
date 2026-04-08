@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS courses (
   title VARCHAR(255) NOT NULL,
   description TEXT,
   thumbnail VARCHAR(500),
+  category VARCHAR(100) DEFAULT '전체',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -68,19 +69,71 @@ CREATE TABLE IF NOT EXISTS answers (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS course_likes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  course_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_like (user_id, course_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS course_comments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  course_id INT NOT NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS enrollments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  course_id INT NOT NULL,
+  enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_enrollment (user_id, course_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS code_snippets (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  code TEXT NOT NULL,
+  language VARCHAR(50) NOT NULL DEFAULT 'javascript',
+  memo TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 -- 샘플 강의 데이터
-INSERT IGNORE INTO courses (id, title, description, thumbnail) VALUES
-(1, 'React 기초부터 실전까지', 'React의 기본 개념부터 프로젝트 실습까지 배워봅니다.', '/images/react.png'),
-(2, 'Node.js 백엔드 개발', 'Express를 활용한 REST API 서버 구축을 학습합니다.', '/images/node.png'),
-(3, 'TypeScript 완전 정복', '타입스크립트의 핵심 개념과 실무 활용법을 익힙니다.', '/images/ts.png');
+INSERT IGNORE INTO courses (id, title, description, thumbnail, category) VALUES
+(1, 'React 기초부터 실전까지', 'React의 기본 개념부터 프로젝트 실습까지 배워봅니다.', '/images/react.png', '프론트엔드'),
+(2, 'Node.js 백엔드 개발', 'Express를 활용한 REST API 서버 구축을 학습합니다.', '/images/node.png', '백엔드'),
+(3, 'TypeScript 완전 정복', '타입스크립트의 핵심 개념과 실무 활용법을 익힙니다.', '/images/ts.png', '프론트엔드');
 
 INSERT IGNORE INTO lessons (id, course_id, title, video_url, `order`, duration) VALUES
-(1, 1, 'React란 무엇인가?', 'https://example.com/react-1', 1, 600),
-(2, 1, 'JSX 문법 이해하기', 'https://example.com/react-2', 2, 720),
-(3, 1, 'useState와 useEffect', 'https://example.com/react-3', 3, 900),
-(4, 2, 'Node.js 소개', 'https://example.com/node-1', 1, 480),
-(5, 2, 'Express 시작하기', 'https://example.com/node-2', 2, 660),
-(6, 2, 'REST API 설계', 'https://example.com/node-3', 3, 840),
-(7, 3, 'TypeScript 기본 타입', 'https://example.com/ts-1', 1, 540),
-(8, 3, '인터페이스와 타입', 'https://example.com/ts-2', 2, 720),
-(9, 3, '제네릭 활용', 'https://example.com/ts-3', 3, 780);
+(1, 1, 'React란 무엇인가?', 'https://www.youtube.com/watch?v=Tn6-PIqc4UM', 1, 600),
+(2, 1, 'JSX 문법 이해하기', 'https://www.youtube.com/watch?v=7fPXI_MnBOY', 2, 720),
+(3, 1, 'useState와 useEffect', 'https://www.youtube.com/watch?v=0ZJgIjIuY7U', 3, 900),
+(4, 2, 'Node.js 소개', 'https://www.youtube.com/watch?v=TlB_eWDSMt4', 1, 480),
+(5, 2, 'Express 시작하기', 'https://www.youtube.com/watch?v=L72fhGm1tfE', 2, 660),
+(6, 2, 'REST API 설계', 'https://www.youtube.com/watch?v=lsMQRaeKNDk', 3, 840),
+(7, 3, 'TypeScript 기본 타입', 'https://www.youtube.com/watch?v=BwuLxPH8IDs', 1, 540),
+(8, 3, '인터페이스와 타입', 'https://www.youtube.com/watch?v=d56mG7DezGs', 2, 720),
+(9, 3, '제네릭 활용', 'https://www.youtube.com/watch?v=nViEqpgwxHE', 3, 780);
+
+-- 기존 더미 URL을 실제 영상으로 덮어쓰기 (재실행 안전)
+UPDATE lessons SET video_url = 'https://www.youtube.com/watch?v=Tn6-PIqc4UM' WHERE id = 1;
+UPDATE lessons SET video_url = 'https://www.youtube.com/watch?v=7fPXI_MnBOY' WHERE id = 2;
+UPDATE lessons SET video_url = 'https://www.youtube.com/watch?v=0ZJgIjIuY7U' WHERE id = 3;
+UPDATE lessons SET video_url = 'https://www.youtube.com/watch?v=TlB_eWDSMt4' WHERE id = 4;
+UPDATE lessons SET video_url = 'https://www.youtube.com/watch?v=L72fhGm1tfE' WHERE id = 5;
+UPDATE lessons SET video_url = 'https://www.youtube.com/watch?v=lsMQRaeKNDk' WHERE id = 6;
+UPDATE lessons SET video_url = 'https://www.youtube.com/watch?v=BwuLxPH8IDs' WHERE id = 7;
+UPDATE lessons SET video_url = 'https://www.youtube.com/watch?v=d56mG7DezGs' WHERE id = 8;
+UPDATE lessons SET video_url = 'https://www.youtube.com/watch?v=nViEqpgwxHE' WHERE id = 9;

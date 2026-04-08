@@ -39,10 +39,16 @@ export default function Navbar() {
           <Link href="/qna" className="hover:text-blue-600 transition">
             Q&A
           </Link>
+          <Link href="/snippets" className="hover:text-blue-600 transition">
+            코드 스니펫
+          </Link>
           {nickname ? (
             <>
               <Link href="/dashboard" className="hover:text-blue-600 transition">
                 대시보드
+              </Link>
+              <Link href="/mypage" className="hover:text-blue-600 transition">
+                마이페이지
               </Link>
               <span className="text-blue-600 font-semibold">{nickname}님</span>
               <button

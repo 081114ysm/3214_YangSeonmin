@@ -1,0 +1,397 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1775657184551,
+  "projectRoot": "D:\\developdlsrkd",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "docs"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "backend": {
+      "path": "backend",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1775657184483,
+      "keyFiles": [
+        "package-lock.json",
+        "package.json"
+      ]
+    },
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 4,
+      "lastAccessed": 1775657184485,
+      "keyFiles": [
+        "DevFocus_발표자료.pdf",
+        "ERD.md",
+        "presentation.html",
+        "요구사항명세서.md"
+      ]
+    },
+    "frontend": {
+      "path": "frontend",
+      "purpose": null,
+      "fileCount": 9,
+      "lastAccessed": 1775657184486,
+      "keyFiles": [
+        "eslint.config.mjs",
+        "next-env.d.ts",
+        "next.config.ts",
+        "package-lock.json",
+        "package.json"
+      ]
+    },
+    "backend\\node_modules": {
+      "path": "backend\\node_modules",
+      "purpose": "Dependencies",
+      "fileCount": 1,
+      "lastAccessed": 1775657184488,
+      "keyFiles": []
+    },
+    "backend\\src": {
+      "path": "backend\\src",
+      "purpose": "Source code",
+      "fileCount": 1,
+      "lastAccessed": 1775657184489,
+      "keyFiles": [
+        "app.js"
+      ]
+    },
+    "frontend\\app": {
+      "path": "frontend\\app",
+      "purpose": "Application code",
+      "fileCount": 4,
+      "lastAccessed": 1775657184491,
+      "keyFiles": [
+        "favicon.ico",
+        "globals.css",
+        "layout.tsx"
+      ]
+    },
+    "frontend\\lib": {
+      "path": "frontend\\lib",
+      "purpose": "Library code",
+      "fileCount": 1,
+      "lastAccessed": 1775657184493,
+      "keyFiles": [
+        "api.ts"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "backend\\src\\config\\schema.sql",
+      "accessCount": 8,
+      "lastAccessed": 1775657629586,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 4,
+      "lastAccessed": 1775436639698,
+      "type": "directory"
+    },
+    {
+      "path": "backend\\src\\routes\\courses.js",
+      "accessCount": 4,
+      "lastAccessed": 1775437352447,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\course\\[id]\\page.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1775657487627,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\courses.js",
+      "accessCount": 3,
+      "lastAccessed": 1775437334003,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\courses\\page.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1775437368278,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\components\\Navbar.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1775437402924,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\app.js",
+      "accessCount": 3,
+      "lastAccessed": 1775657616274,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\middleware\\auth.js",
+      "accessCount": 2,
+      "lastAccessed": 1775437275643,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\progress.js",
+      "accessCount": 2,
+      "lastAccessed": 1775437276638,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\dashboard\\page.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1775437277850,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\lib\\api.ts",
+      "accessCount": 2,
+      "lastAccessed": 1775437278269,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\config\\db.js",
+      "accessCount": 2,
+      "lastAccessed": 1775657779335,
+      "type": "file"
+    },
+    {
+      "path": "diary.md",
+      "accessCount": 2,
+      "lastAccessed": 1775658170260,
+      "type": "file"
+    },
+    {
+      "path": "plan.md",
+      "accessCount": 1,
+      "lastAccessed": 1775436634377,
+      "type": "file"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 1,
+      "lastAccessed": 1775436634440,
+      "type": "file"
+    },
+    {
+      "path": "SETUP.md",
+      "accessCount": 1,
+      "lastAccessed": 1775436639656,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\routes\\auth.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437191266,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\routes\\users.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437191301,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\routes\\focus.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437191804,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\routes\\progress.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437191819,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\routes\\qna.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437192050,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\routes\\lessons.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437192269,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\middleware\\validate.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437194802,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\auth.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437195328,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\users.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437195373,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\qna.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437199404,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\focus.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437199460,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\lessons.js",
+      "accessCount": 1,
+      "lastAccessed": 1775437199705,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\layout.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775437202896,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775437203265,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\login\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775437203328,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\register\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775437203621,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\qna\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775437207711,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\focus\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775437207772,
+      "type": "file"
+    },
+    {
+      "path": "backend\\package.json",
+      "accessCount": 1,
+      "lastAccessed": 1775437224524,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\package.json",
+      "accessCount": 1,
+      "lastAccessed": 1775437224702,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\app\\mypage\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775437396981,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src",
+      "accessCount": 1,
+      "lastAccessed": 1775657603679,
+      "type": "directory"
+    },
+    {
+      "path": "backend",
+      "accessCount": 1,
+      "lastAccessed": 1775657611754,
+      "type": "directory"
+    },
+    {
+      "path": "backend\\src\\controllers\\snippets.js",
+      "accessCount": 1,
+      "lastAccessed": 1775658121623,
+      "type": "file"
+    },
+    {
+      "path": "week3\\0402-wed.md",
+      "accessCount": 1,
+      "lastAccessed": 1775658223882,
+      "type": "file"
+    },
+    {
+      "path": "week3\\0403-thu.md",
+      "accessCount": 1,
+      "lastAccessed": 1775658231542,
+      "type": "file"
+    },
+    {
+      "path": "week3\\0404-fri.md",
+      "accessCount": 1,
+      "lastAccessed": 1775658240994,
+      "type": "file"
+    },
+    {
+      "path": "week3\\0405-sat.md",
+      "accessCount": 1,
+      "lastAccessed": 1775658252662,
+      "type": "file"
+    },
+    {
+      "path": "week3\\0406-sun.md",
+      "accessCount": 1,
+      "lastAccessed": 1775658261864,
+      "type": "file"
+    },
+    {
+      "path": "week3\\0407-mon.md",
+      "accessCount": 1,
+      "lastAccessed": 1775658271810,
+      "type": "file"
+    },
+    {
+      "path": "week3\\0408-tue.md",
+      "accessCount": 1,
+      "lastAccessed": 1775658287230,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
