@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"cd D:/developdlsrkd/backend && node src/app.js > /dev/null 2>&1 &\\nBGPID=$!\\nsleep 2\\necho \\\"--- categories ---\\\"\\ncurl -s http://localhost:3001/api/courses/categories\\necho \\\"\\\"\\necho \\\"-...",
-  "error": "Exit code 1\n[1]+  Done                    cd D:/developdlsrkd/backend && node src/app.js > /dev/null 2>&1\n--- categories ---\n{\"error\":\"강의 없음\"}\n--- courses ---\n[{\"id\":1,\"title\":\"React 기초부터 실전까지\",\"description\":\"React의 기본 개념부터 프로젝트 실습까지 배워봅니다.\",\"thumbnail\":\"/images/react.png\",\"created_at\":\"2026-04-05T14:21:31.000Z\",\"category\":\"프론트엔드\"},{\"id\":2,\"title\":\"Node.js 백엔드 개발\",\"description\":\"Express를 활용한 REST API 서버 구축을 학습합니다.\",\"thumbnail\":\"/images/node.png\",\"created_at\":\"2026-04-05T14:21:31.000Z\",\"category\"...",
-  "timestamp": "2026-04-06T01:09:04.106Z",
-  "retry_count": 1
-}

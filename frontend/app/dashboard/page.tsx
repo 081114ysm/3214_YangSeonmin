@@ -53,48 +53,76 @@ export default function DashboardPage() {
     return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   };
 
-  if (!user) return <p className="p-8 text-gray-500">로딩 중...</p>;
+  if (!user) return <p className="p-8 text-[#717171]">로딩 중...</p>;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">대시보드</h1>
-        <p className="text-gray-600 mb-8">
-          안녕하세요, <span className="font-semibold text-blue-600">{user.nickname}</span>님!
-        </p>
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="bg-[#F7F7F7] py-16 px-8">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+            Dashboard
+          </p>
+          <h1
+            className="text-4xl font-extrabold text-[#222222]"
+            style={{ letterSpacing: "-1px" }}
+          >
+            대시보드
+          </h1>
+          <p className="text-[#717171] mt-2">
+            안녕하세요,{" "}
+            <span className="font-semibold text-[#FF385C]">{user.nickname}</span>님
+          </p>
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-sm font-semibold text-gray-400 mb-2">총 집중 시간</h2>
-            <p className="text-3xl font-bold text-blue-600">
+      <div className="max-w-4xl mx-auto px-8 py-12">
+        {/* Stat cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <div className="bg-[#F7F7F7] rounded-2xl p-8">
+            <p className="text-xs font-extrabold text-[#717171] uppercase tracking-widest mb-3">
+              총 집중 시간
+            </p>
+            <p className="text-4xl font-extrabold text-[#FF385C]">
               {formatTime(Math.round(totalFocus))}
             </p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-sm font-semibold text-gray-400 mb-2">집중 세션 수</h2>
-            <p className="text-3xl font-bold text-green-600">
+          <div className="bg-[#F7F7F7] rounded-2xl p-8">
+            <p className="text-xs font-extrabold text-[#717171] uppercase tracking-widest mb-3">
+              집중 세션 수
+            </p>
+            <p className="text-4xl font-extrabold text-[#222222]">
               {focusHistory.length}회
             </p>
           </div>
         </div>
 
-        <h2 className="text-xl font-bold mb-4">최근 집중 기록</h2>
-        <div className="space-y-3">
+        {/* Recent sessions */}
+        <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+          History
+        </p>
+        <h2
+          className="text-2xl font-extrabold text-[#222222] mb-6"
+          style={{ letterSpacing: "-0.5px" }}
+        >
+          최근 집중 기록
+        </h2>
+        <div className="space-y-2">
           {focusHistory.map((session) => (
             <div
               key={session.id}
-              className="bg-white p-4 rounded-lg shadow flex justify-between items-center"
+              className="bg-[#F7F7F7] rounded-xl px-6 py-4 flex justify-between items-center"
             >
-              <span className="text-gray-600 text-sm">
+              <span className="text-[#717171] text-sm">
                 {new Date(session.start_time).toLocaleString("ko-KR")}
               </span>
-              <span className="font-mono font-semibold">
+              <span className="font-mono font-semibold text-[#222222]">
                 {session.duration ? formatTime(Math.round(session.duration)) : "-"}
               </span>
             </div>
           ))}
           {focusHistory.length === 0 && (
-            <p className="text-gray-400 text-center py-4">아직 기록이 없습니다</p>
+            <p className="text-[#717171] text-center py-8 text-sm">아직 기록이 없습니다</p>
           )}
         </div>
       </div>

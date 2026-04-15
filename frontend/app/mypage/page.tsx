@@ -42,7 +42,7 @@ export default function MyPage() {
       .catch(() => {});
   }, [router]);
 
-  if (!user) return <p className="p-8 text-gray-500">로딩 중...</p>;
+  if (!user) return <p className="p-8 text-[#717171]">로딩 중...</p>;
 
   const totalProgress =
     enrollments.length > 0
@@ -55,54 +55,83 @@ export default function MyPage() {
       : 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">마이페이지</h1>
-        <p className="text-gray-600 mb-8">
-          <span className="font-semibold text-blue-600">{user.nickname}</span>님의 학습 현황
-        </p>
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="bg-[#F7F7F7] py-16 px-8">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+            My Account
+          </p>
+          <h1
+            className="text-4xl font-extrabold text-[#222222]"
+            style={{ letterSpacing: "-1px" }}
+          >
+            마이페이지
+          </h1>
+          <p className="text-[#717171] mt-2">
+            <span className="font-semibold text-[#FF385C]">{user.nickname}</span>님의 학습 현황
+          </p>
+        </div>
+      </div>
 
-        {/* 요약 카드 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-sm font-semibold text-gray-400 mb-1">수강 강의</h2>
-            <p className="text-3xl font-bold text-blue-600">{enrollments.length}개</p>
+      <div className="max-w-4xl mx-auto px-8 py-12">
+        {/* Stat cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+          <div className="bg-[#F7F7F7] rounded-2xl p-8">
+            <p className="text-xs font-extrabold text-[#717171] uppercase tracking-widest mb-3">
+              수강 강의
+            </p>
+            <p className="text-4xl font-extrabold text-[#FF385C]">{enrollments.length}개</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-sm font-semibold text-gray-400 mb-1">전체 진행률</h2>
-            <p className="text-3xl font-bold text-green-600">{totalProgress}%</p>
+          <div className="bg-[#F7F7F7] rounded-2xl p-8">
+            <p className="text-xs font-extrabold text-[#717171] uppercase tracking-widest mb-3">
+              전체 진행률
+            </p>
+            <p className="text-4xl font-extrabold text-[#222222]">{totalProgress}%</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-sm font-semibold text-gray-400 mb-1">완료 강의</h2>
-            <p className="text-3xl font-bold text-purple-600">
+          <div className="bg-[#F7F7F7] rounded-2xl p-8">
+            <p className="text-xs font-extrabold text-[#717171] uppercase tracking-widest mb-3">
+              완료 강의
+            </p>
+            <p className="text-4xl font-extrabold text-[#222222]">
               {enrollments.filter((c) => c.total_lessons > 0 && c.watched_lessons >= c.total_lessons).length}개
             </p>
           </div>
         </div>
 
-        {/* 사용자 정보 */}
-        <div className="bg-white rounded-lg shadow p-6 mb-8">
-          <h2 className="text-sm font-semibold text-gray-400 mb-3">내 정보</h2>
-          <div className="flex gap-8">
+        {/* User info */}
+        <div className="bg-[#F7F7F7] rounded-2xl p-8 mb-10">
+          <p className="text-xs font-extrabold text-[#717171] uppercase tracking-widest mb-4">
+            내 정보
+          </p>
+          <div className="flex gap-10">
             <div>
-              <span className="text-gray-500 text-sm">닉네임</span>
-              <p className="font-medium">{user.nickname}</p>
+              <span className="text-[#717171] text-xs uppercase tracking-wider">닉네임</span>
+              <p className="font-semibold text-[#222222] mt-1">{user.nickname}</p>
             </div>
             <div>
-              <span className="text-gray-500 text-sm">이메일</span>
-              <p className="font-medium">{user.email}</p>
+              <span className="text-[#717171] text-xs uppercase tracking-wider">이메일</span>
+              <p className="font-semibold text-[#222222] mt-1">{user.email}</p>
             </div>
           </div>
         </div>
 
-        {/* 수강 목록 */}
-        <h2 className="text-xl font-bold mb-4">수강 중인 강의</h2>
+        {/* Enrollments */}
+        <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+          Learning
+        </p>
+        <h2
+          className="text-2xl font-extrabold text-[#222222] mb-6"
+          style={{ letterSpacing: "-0.5px" }}
+        >
+          수강 중인 강의
+        </h2>
         {enrollments.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
-            <p className="text-gray-400 mb-4">아직 수강 중인 강의가 없습니다</p>
+          <div className="bg-[#F7F7F7] rounded-2xl p-10 text-center">
+            <p className="text-[#717171] mb-5">아직 수강 중인 강의가 없습니다</p>
             <Link
               href="/courses"
-              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition inline-block"
+              className="px-7 py-3 bg-[#FF385C] text-white rounded-full font-medium hover:bg-[#e0314f] transition-colors inline-block text-sm"
             >
               강의 둘러보기
             </Link>
@@ -117,40 +146,37 @@ export default function MyPage() {
 
               return (
                 <Link key={course.id} href={`/course/${course.id}`}>
-                  <div className="bg-white rounded-lg shadow hover:shadow-lg transition p-5 cursor-pointer">
-                    <div className="flex justify-between items-start mb-3">
+                  <div className="bg-[#F7F7F7] rounded-2xl p-6 hover:bg-[#ebebeb] transition-colors cursor-pointer">
+                    <div className="flex justify-between items-start mb-4">
                       <div>
-                        <h3 className="font-bold text-lg">{course.title}</h3>
-                        <p className="text-gray-500 text-sm">{course.description}</p>
+                        <h3 className="font-bold text-[#222222] text-base">{course.title}</h3>
+                        <p className="text-[#717171] text-sm mt-1">{course.description}</p>
                       </div>
                       {course.category && (
-                        <span className="bg-blue-100 text-blue-600 text-xs font-semibold px-2 py-1 rounded shrink-0 ml-3">
+                        <span className="bg-[#FFF0F3] text-[#FF385C] text-xs font-semibold px-3 py-1 rounded-full shrink-0 ml-3">
                           {course.category}
                         </span>
                       )}
                     </div>
 
-                    {/* 진행도 바 */}
-                    <div className="mt-3">
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="text-gray-500">
+                    <div>
+                      <div className="flex justify-between text-sm mb-2">
+                        <span className="text-[#717171]">
                           {course.watched_lessons} / {course.total_lessons} 강의 완료
                         </span>
-                        <span className={`font-semibold ${progress === 100 ? "text-green-600" : "text-blue-600"}`}>
+                        <span className={`font-semibold ${progress === 100 ? "text-[#FF385C]" : "text-[#222222]"}`}>
                           {progress}%
                         </span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2.5">
+                      <div className="w-full bg-white rounded-full h-2">
                         <div
-                          className={`h-2.5 rounded-full transition-all ${
-                            progress === 100 ? "bg-green-500" : "bg-blue-500"
-                          }`}
+                          className="h-2 rounded-full bg-[#FF385C] transition-all"
                           style={{ width: `${progress}%` }}
                         />
                       </div>
                     </div>
 
-                    <p className="text-xs text-gray-400 mt-2">
+                    <p className="text-xs text-[#717171] mt-3">
                       수강 시작: {new Date(course.enrolled_at).toLocaleDateString("ko-KR")}
                     </p>
                   </div>

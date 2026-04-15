@@ -74,62 +74,83 @@ export default function CourseDetailPage() {
     } catch {}
   };
 
-  if (!course) return <p className="p-8 text-gray-500">로딩 중...</p>;
+  if (!course)
+    return <p className="p-8 text-[#717171]">로딩 중...</p>;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-4xl mx-auto">
-        {/* 헤더 */}
-        <div className="flex items-start justify-between mb-2">
-          <h1 className="text-3xl font-bold">{course.title}</h1>
-          <div className="flex gap-2">
-            <button
-              onClick={handleLike}
-              className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition ${
-                course.liked
-                  ? "bg-red-100 text-red-600"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-              }`}
+    <div className="min-h-screen bg-white">
+      {/* Course header */}
+      <div className="bg-[#F7F7F7] py-16 px-8">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+            Course
+          </p>
+          <div className="flex items-start justify-between gap-4">
+            <h1
+              className="text-4xl font-extrabold text-[#222222]"
+              style={{ letterSpacing: "-1px" }}
             >
-              {course.liked ? "♥" : "♡"} {course.likeCount}
-            </button>
-            {!course.enrolled ? (
+              {course.title}
+            </h1>
+            <div className="flex gap-2 shrink-0">
               <button
-                onClick={handleEnroll}
-                className="px-4 py-2 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition font-medium"
+                onClick={handleLike}
+                className={`flex items-center gap-1 px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+                  course.liked
+                    ? "bg-[#FFF0F3] text-[#FF385C]"
+                    : "bg-white text-[#717171] hover:bg-[#ebebeb]"
+                }`}
               >
-                수강 신청
+                {course.liked ? "♥" : "♡"} {course.likeCount}
               </button>
-            ) : (
-              <span className="px-4 py-2 bg-green-100 text-green-700 text-sm rounded-lg font-medium">
-                수강 중
-              </span>
-            )}
+              {!course.enrolled ? (
+                <button
+                  onClick={handleEnroll}
+                  className="px-5 py-2 bg-[#FF385C] text-white text-sm rounded-full hover:bg-[#e0314f] transition-colors font-medium"
+                >
+                  수강 신청
+                </button>
+              ) : (
+                <span className="px-5 py-2 bg-[#FFF0F3] text-[#FF385C] text-sm rounded-full font-medium">
+                  수강 중
+                </span>
+              )}
+            </div>
           </div>
+          <p className="text-[#717171] mt-4 text-base leading-relaxed">{course.description}</p>
         </div>
-        <p className="text-gray-600 mb-8">{course.description}</p>
+      </div>
 
-        {/* 강의 목록 */}
-        <h2 className="text-xl font-bold mb-4">강의 목록</h2>
-        <div className="space-y-3 mb-10">
+      <div className="max-w-4xl mx-auto px-8 py-12">
+        {/* Lessons */}
+        <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+          Lessons
+        </p>
+        <h2
+          className="text-2xl font-extrabold text-[#222222] mb-6"
+          style={{ letterSpacing: "-0.5px" }}
+        >
+          강의 목록
+        </h2>
+        <div className="space-y-2 mb-12">
           {course.lessons.map((lesson) => (
             <div
               key={lesson.id}
-              className="bg-white p-4 rounded-lg shadow flex justify-between items-center"
+              className="bg-[#F7F7F7] rounded-xl px-6 py-4 flex justify-between items-center"
             >
               <div>
-                <span className="text-blue-500 font-mono mr-3">{lesson.order}.</span>
-                <span className="font-medium">{lesson.title}</span>
+                <span className="text-[#FF385C] font-mono text-sm mr-3">{lesson.order}.</span>
+                <span className="font-medium text-[#222222]">{lesson.title}</span>
               </div>
               <div className="flex items-center gap-4">
-                <span className="text-sm text-gray-400">
+                <span className="text-sm text-[#717171]">
                   {Math.floor(lesson.duration / 60)}분
                 </span>
                 <a
                   href={lesson.video_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-1.5 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition"
+                  className="px-4 py-1.5 bg-[#222222] text-white text-sm rounded-full hover:bg-[#3a3a3a] transition-colors"
                 >
                   강의 보기
                 </a>
@@ -138,39 +159,47 @@ export default function CourseDetailPage() {
           ))}
         </div>
 
-        {/* 댓글 섹션 */}
-        <h2 className="text-xl font-bold mb-4">댓글 ({course.comments.length})</h2>
-        <form onSubmit={handleComment} className="flex gap-2 mb-6">
+        {/* Comments */}
+        <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+          Discussion
+        </p>
+        <h2
+          className="text-2xl font-extrabold text-[#222222] mb-6"
+          style={{ letterSpacing: "-0.5px" }}
+        >
+          댓글 ({course.comments.length})
+        </h2>
+        <form onSubmit={handleComment} className="flex gap-2 mb-8">
           <input
             type="text"
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             placeholder={isLoggedIn ? "댓글을 입력하세요..." : "로그인 후 댓글을 작성할 수 있습니다"}
-            className="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="flex-1 border border-[#ebebeb] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF385C] text-sm"
             disabled={!isLoggedIn}
           />
           <button
             type="submit"
             disabled={!isLoggedIn}
-            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
+            className="px-6 py-3 bg-[#FF385C] text-white rounded-xl hover:bg-[#e0314f] transition-colors disabled:opacity-40 text-sm font-medium"
           >
             작성
           </button>
         </form>
         <div className="space-y-3">
           {course.comments.map((comment) => (
-            <div key={comment.id} className="bg-white p-4 rounded-lg shadow">
+            <div key={comment.id} className="bg-[#F7F7F7] rounded-xl p-5">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-semibold text-blue-600">{comment.nickname}</span>
-                <span className="text-xs text-gray-400">
+                <span className="font-semibold text-[#222222] text-sm">{comment.nickname}</span>
+                <span className="text-xs text-[#717171]">
                   {new Date(comment.created_at).toLocaleString("ko-KR")}
                 </span>
               </div>
-              <p className="text-gray-700">{comment.content}</p>
+              <p className="text-[#717171] text-sm leading-relaxed">{comment.content}</p>
             </div>
           ))}
           {course.comments.length === 0 && (
-            <p className="text-gray-400 text-center py-4">아직 댓글이 없습니다</p>
+            <p className="text-[#717171] text-center py-6 text-sm">아직 댓글이 없습니다</p>
           )}
         </div>
       </div>

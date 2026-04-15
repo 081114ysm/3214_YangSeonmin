@@ -270,3 +270,150 @@ MySQL INSERT IGNORE / UPDATE 차이 자료
 
 👉 “기능을 붙이는 주차에서, 사용자 경험을 다듬는 주차로 넘어간 시기”
 
+
+4주차 개발 일지 (4/9 ~ 4/15)
+
+4/9 (수)
+오늘 공부 / 개발
+
+P1 전체 코드를 점검하고 P2 설계를 시작했다.
+P2의 핵심은 역할 기반 접근 제어(RBAC)로, 사용자를 student, instructor, admin 세 가지 역할로 구분하는 것이다.
+users 테이블에 role 컬럼을 추가하고, courses 테이블에 instructor_id 컬럼을 추가하는 마이그레이션 SQL을 작성했다.
+JWT 토큰 payload에 role을 포함시켜 서버에서 권한 검증이 가능하도록 설계 방향을 잡았다.
+
+오류 / 어려웠던 점
+
+MySQL의 ALTER TABLE ADD COLUMN IF NOT EXISTS 문법은 MySQL 8.0 이후에만 지원된다는 것을 확인했다.
+기존 DB에도 적용 가능하도록 p2_p3 마이그레이션 파일을 별도로 분리하는 방식으로 정리했다.
+
+내일 할 일
+JWT에 role 포함하여 토큰 재발급 구조 수정
+requireRole 미들웨어 구현
+
+
+4/10 (목)
+오늘 공부 / 개발
+
+JWT 토큰에 role을 포함하도록 auth 컨트롤러를 수정했다.
+기존 토큰 만료 시간이 1시간이었는데, 사용자 편의를 위해 7일로 변경했다.
+requireRole 미들웨어를 작성하여 특정 역할만 접근 가능한 라우터에 적용할 수 있도록 했다.
+middleware/auth.js에서 authMiddleware와 requireRole을 함께 export하는 구조로 통일했다.
+
+오류 / 어려웠던 점
+
+기존 authMiddleware에서 jwt.verify의 secret이 하드코딩되어 있었다.
+보안을 위해 JWT_SECRET을 환경변수로 분리하고, 미들웨어와 컨트롤러가 같은 값을 참조하도록 logger.js에서 export하는 방식으로 해결했다.
+
+내일 할 일
+관리자(admin) 컨트롤러 및 라우터 구현
+강사(instructor) 컨트롤러 및 라우터 구현
+
+
+4/11 (금)
+오늘 공부 / 개발
+
+관리자 전용 API를 구현했다.
+전체 사용자 목록 조회, 역할 변경, 사용자 삭제, 전체 강의 관리, 통계 조회 기능을 admin 컨트롤러로 분리하여 작성했다.
+강사 전용 API도 구현했다.
+강의 생성/수정/삭제, 레슨 추가/수정/삭제 기능을 instructor 컨트롤러로 분리했다.
+강의 수정/삭제 시 instructor_id를 검증하여 본인 강의만 조작 가능하도록 처리했다.
+
+오류 / 어려웠던 점
+
+강사가 다른 강사의 강의를 수정하려 할 때 403이 내려가야 하는데, 처음에는 단순히 courseId로만 조회해서 소유권 검증이 누락되어 있었다.
+SELECT id FROM courses WHERE id = ? AND instructor_id = ? 쿼리로 소유권을 함께 검증하도록 수정하여 해결했다.
+
+내일 할 일
+Helmet, Rate Limiting 보안 설정 적용
+Winston 구조화 로그 적용
+
+
+4/12 (토)
+오늘 공부 / 개발
+
+P3 보안 작업을 진행했다.
+helmet을 적용하여 XSS, Clickjacking, MIME sniffing 등에 대한 보안 헤더를 자동으로 설정했다.
+express-rate-limit을 적용하여 일반 API는 15분/200회, 인증 API는 15분/20회로 제한했다.
+Winston을 사용하여 구조화 로그를 구축했다. 모든 HTTP 요청의 메서드, URL, 상태코드, 응답시간을 기록하도록 미들웨어를 추가했다.
+
+오류 / 어려웠던 점
+
+helmet을 적용하자 프론트엔드에서 이미지나 폰트가 로드되지 않는 문제가 생겼다.
+crossOriginResourcePolicy 옵션을 cross-origin으로 설정하여 해결했다.
+
+내일 할 일
+이메일 알림 서비스 구현
+Discord 웹훅 알림 구현
+스케줄러 구현
+
+
+4/13 (일)
+오늘 공부 / 개발
+
+P3 외부 연동 서비스를 구현했다.
+nodemailer를 사용하여 회원가입 환영 메일과 수강 신청 완료 메일 발송 기능을 작성했다.
+Discord 웹훅을 통해 서버 통계를 채널에 전송하는 discord.js 서비스를 작성했다.
+node-cron을 사용하여 스케줄러를 구축했다. 매일 오전 9시에 신규 가입자, 수강 신청, 집중 세션 수를 Discord로 전송하고, 매주 월요일 새벽 3시에 오래된 집중 세션 데이터를 정리하도록 설정했다.
+job_logs 테이블에 스케줄러 실행 결과를 저장하여 작업 이력을 추적할 수 있도록 했다.
+
+오류 / 어려웠던 점
+
+환경변수가 설정되지 않은 상태에서 이메일과 Discord 서비스가 오류를 내지 않도록 처리하는 것이 중요했다.
+환경변수가 비어있으면 로그만 남기고 정상 반환하도록 처리하여 개발 환경에서도 문제없이 동작하도록 했다.
+
+내일 할 일
+결제 모듈(mock) 구현
+프론트엔드 관리자 페이지 및 강사 대시보드 구현
+
+
+4/14 (월)
+오늘 공부 / 개발
+
+결제 모듈을 구현했다.
+실제 PG사 연동 대신 paymentKey를 발급하고 확인하는 방식으로 mock 결제 흐름을 만들었다.
+결제 완료 시 자동으로 수강 신청이 처리되고 이메일 알림이 발송되도록 연결했다.
+프론트엔드에 관리자 페이지(/admin)와 강사 대시보드(/instructor)를 구현했다.
+관리자 페이지에서는 통계, 사용자 역할 변경, 강의 삭제 기능을 탭으로 구성했다.
+강사 대시보드에서는 강의 생성, 레슨 추가/삭제를 한 화면에서 처리할 수 있도록 구성했다.
+로그인 시 역할에 따라 관리자는 /admin, 강사는 /instructor, 학생은 /dashboard로 자동 이동하도록 처리했다.
+회원가입 페이지에서 학생/강사 역할을 선택할 수 있는 UI를 추가했다.
+
+오류 / 어려웠던 점
+
+Navbar에서 localStorage의 role 값을 읽어오는 타이밍이 useEffect 이후라서 첫 렌더링 시 메뉴가 잠깐 안 보이는 깜빡임 현상이 있었다.
+api('/users/me') 응답 후 role을 함께 읽도록 순서를 정리하여 개선했다.
+
+내일 할 일
+Docker 설정 완성 및 docker-compose 검증
+GitHub Actions CI/CD 파이프라인 구축
+
+
+4/15 (화)
+오늘 공부 / 개발
+
+Docker와 CI/CD 파이프라인을 구축했다.
+백엔드와 프론트엔드 각각 멀티 스테이지 Dockerfile을 작성했다.
+백엔드는 node:20-alpine 기반으로 production 의존성만 설치하도록 했고, 헬스체크 엔드포인트(/health)를 활용하도록 구성했다.
+프론트엔드는 Next.js standalone 빌드를 활용하여 이미지 크기를 최소화했다.
+docker-compose.yml을 작성하여 DB, 백엔드, 프론트엔드를 한 번에 실행할 수 있도록 구성했다. MySQL 헬스체크 후 백엔드가 시작되도록 depends_on 조건을 설정했다.
+GitHub Actions CI 워크플로우는 백엔드 린트/테스트(MySQL 서비스 포함)와 프론트엔드 타입체크/빌드를 병렬로 실행하도록 구성했다.
+CD 워크플로우는 main 브랜치 push 시 Docker 이미지를 빌드하여 GitHub Container Registry(GHCR)에 푸시하고, Render 배포 훅을 트리거하도록 구성했다.
+환경변수는 .env.example로 정리하고 .gitignore에 .env를 추가했다.
+
+오류 / 어려웠던 점
+
+프론트엔드 Dockerfile에서 standalone 빌드를 사용하려면 next.config.ts에 output: 'standalone' 설정이 필요하다는 것을 확인했다.
+또한 docker-compose에서 백엔드 서비스 이름(backend)이 프론트엔드의 API URL 호스트가 되므로, 환경변수 NEXT_PUBLIC_API_URL을 http://backend:3001/api로 설정해야 컨테이너 간 통신이 된다는 점을 정리했다.
+
+내일 할 일
+next.config.ts에 standalone 출력 설정 추가
+전체 스택 docker compose up 테스트
+P2/P3 최종 점검
+
+4주차 총 정리
+P2 완성: JWT role, requireRole 미들웨어, 관리자/강사 API, 역할별 프론트엔드 페이지
+P3 완성: Helmet/Rate Limiting 보안, Winston 로그, 이메일/Discord 알림, node-cron 스케줄러, 결제 모듈
+인프라 완성: Dockerfile(백/프론트), docker-compose, GitHub Actions CI/CD
+
+“인증과 권한, 운영 인프라까지 한 주에 모두 완성한 주차”
+

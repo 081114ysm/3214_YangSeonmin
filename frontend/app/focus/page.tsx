@@ -68,42 +68,68 @@ export default function FocusPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">집중 타이머</h1>
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="bg-[#F7F7F7] py-16 px-8">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+            Focus
+          </p>
+          <h1
+            className="text-4xl font-extrabold text-[#222222]"
+            style={{ letterSpacing: "-1px" }}
+          >
+            집중 타이머
+          </h1>
+        </div>
+      </div>
 
-        <div className="bg-white rounded-lg shadow p-8 text-center mb-8">
-          <div className="text-6xl font-mono font-bold text-gray-800 mb-6">
+      <div className="max-w-2xl mx-auto px-8 py-12">
+        {/* Timer card */}
+        <div className="bg-[#F7F7F7] rounded-3xl p-12 text-center mb-10">
+          <div
+            className="text-7xl font-mono font-extrabold text-[#222222] mb-4 tracking-tight"
+            style={{ letterSpacing: "-2px" }}
+          >
             {formatTime(elapsed)}
           </div>
-          <p className="text-gray-500 mb-6">
+          <p className="text-[#717171] mb-8 text-base">
             {isRunning ? "집중 중..." : "시작 버튼을 눌러 집중을 시작하세요"}
           </p>
           <button
             onClick={isRunning ? handleEnd : handleStart}
-            className={`px-8 py-3 rounded-lg text-white font-semibold text-lg transition ${
+            className={`px-10 py-4 rounded-full text-white font-semibold text-base transition-colors ${
               isRunning
-                ? "bg-red-500 hover:bg-red-600"
-                : "bg-green-500 hover:bg-green-600"
+                ? "bg-[#FF385C] hover:bg-[#e0314f]"
+                : "bg-[#222222] hover:bg-[#3a3a3a]"
             }`}
           >
             {isRunning ? "종료" : "시작"}
           </button>
         </div>
 
-        <h2 className="text-xl font-bold mb-4">집중 기록</h2>
-        <div className="space-y-3">
+        {/* History */}
+        <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+          History
+        </p>
+        <h2
+          className="text-2xl font-extrabold text-[#222222] mb-6"
+          style={{ letterSpacing: "-0.5px" }}
+        >
+          집중 기록
+        </h2>
+        <div className="space-y-2">
           {history.map((session) => (
             <div
               key={session.id}
-              className="bg-white p-4 rounded-lg shadow flex justify-between items-center"
+              className="bg-[#F7F7F7] rounded-xl px-6 py-4 flex justify-between items-center"
             >
-              <span className="text-gray-600 text-sm">
+              <span className="text-[#717171] text-sm">
                 {session.start_time
                   ? new Date(session.start_time).toLocaleString("ko-KR")
                   : "방금 전"}
               </span>
-              <span className="font-mono font-semibold">
+              <span className="font-mono font-semibold text-[#222222]">
                 {session.duration
                   ? formatTime(Math.round(session.duration))
                   : "-"}
@@ -111,7 +137,7 @@ export default function FocusPage() {
             </div>
           ))}
           {history.length === 0 && (
-            <p className="text-gray-400 text-center py-4">아직 기록이 없습니다</p>
+            <p className="text-[#717171] text-center py-8 text-sm">아직 기록이 없습니다</p>
           )}
         </div>
       </div>

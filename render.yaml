@@ -1,0 +1,58 @@
+services:
+  - type: web
+    name: devfocus-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: DB_HOST
+        fromDatabase:
+          name: devfocus-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: devfocus-db
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: devfocus-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: devfocus-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: devfocus-db
+          property: database
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: DISCORD_WEBHOOK_URL
+        sync: false
+    healthCheckPath: /health
+
+  - type: web
+    name: devfocus-frontend
+    runtime: docker
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    plan: free
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+
+databases:
+  - name: devfocus-db
+    plan: free
+    databaseName: devfocus

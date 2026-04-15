@@ -35,7 +35,6 @@ export default function SnippetsPage() {
   const [filterLang, setFilterLang] = useState("전체");
   const [languages, setLanguages] = useState<string[]>(["전체"]);
 
-  // 작성 폼
   const [title, setTitle] = useState("");
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState("javascript");
@@ -100,41 +99,52 @@ export default function SnippetsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="bg-[#F7F7F7] py-16 px-8">
+        <div className="max-w-4xl mx-auto flex items-end justify-between">
           <div>
-            <h1 className="text-3xl font-bold">코드 스니펫</h1>
-            <p className="text-gray-500 mt-1">학습하면서 유용한 코드를 저장하세요</p>
+            <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+              Snippets
+            </p>
+            <h1
+              className="text-4xl font-extrabold text-[#222222]"
+              style={{ letterSpacing: "-1px" }}
+            >
+              코드 스니펫
+            </h1>
+            <p className="text-[#717171] mt-2 text-sm">학습하면서 유용한 코드를 저장하세요</p>
           </div>
           <button
             onClick={() => setShowForm(!showForm)}
-            className={`px-5 py-2 rounded-lg font-medium transition ${
+            className={`px-6 py-3 rounded-full font-medium text-sm transition-colors ${
               showForm
-                ? "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                : "bg-blue-500 text-white hover:bg-blue-600"
+                ? "bg-[#F7F7F7] text-[#717171] hover:bg-[#ebebeb] border border-[#ebebeb]"
+                : "bg-[#FF385C] text-white hover:bg-[#e0314f]"
             }`}
           >
             {showForm ? "취소" : "+ 새 스니펫"}
           </button>
         </div>
+      </div>
 
-        {/* 작성 폼 */}
+      <div className="max-w-4xl mx-auto px-8 py-10">
+        {/* Create form */}
         {showForm && (
-          <form onSubmit={handleCreate} className="bg-white rounded-lg shadow p-6 mb-6 space-y-4">
+          <form onSubmit={handleCreate} className="bg-[#F7F7F7] rounded-2xl p-8 mb-8 space-y-4">
             <div className="flex gap-4">
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="제목 (예: React useEffect 패턴)"
-                className="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="flex-1 border border-[#ebebeb] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF385C] text-sm bg-white"
                 required
               />
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="border border-[#ebebeb] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF385C] text-sm bg-white"
               >
                 {LANGUAGES.map((lang) => (
                   <option key={lang} value={lang}>
@@ -148,7 +158,7 @@ export default function SnippetsPage() {
               onChange={(e) => setCode(e.target.value)}
               placeholder="코드를 입력하세요..."
               rows={8}
-              className="w-full border rounded-lg px-4 py-3 font-mono text-sm bg-gray-900 text-green-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-[#ebebeb] rounded-xl px-4 py-3 font-mono text-sm bg-[#222222] text-[#4ade80] focus:outline-none focus:ring-2 focus:ring-[#FF385C]"
               required
             />
             <textarea
@@ -156,27 +166,27 @@ export default function SnippetsPage() {
               onChange={(e) => setMemo(e.target.value)}
               placeholder="메모 (선택사항 - 이 코드가 왜 유용한지, 어디서 배웠는지 등)"
               rows={2}
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-[#ebebeb] rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF385C] text-sm bg-white"
             />
             <button
               type="submit"
-              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition font-medium"
+              className="px-7 py-2.5 bg-[#FF385C] text-white rounded-full font-medium text-sm hover:bg-[#e0314f] transition-colors"
             >
               저장
             </button>
           </form>
         )}
 
-        {/* 언어 필터 */}
-        <div className="flex gap-2 flex-wrap mb-6">
+        {/* Language filter */}
+        <div className="flex gap-2 flex-wrap mb-8">
           {languages.map((lang) => (
             <button
               key={lang}
               onClick={() => setFilterLang(lang)}
-              className={`px-3 py-1 rounded-full text-sm font-medium transition ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 filterLang === lang
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-[#FF385C] text-white"
+                  : "bg-[#F7F7F7] text-[#717171] hover:bg-[#ebebeb]"
               }`}
             >
               {lang}
@@ -184,46 +194,46 @@ export default function SnippetsPage() {
           ))}
         </div>
 
-        {/* 스니펫 목록 */}
+        {/* Snippet list */}
         {snippets.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
-            <p className="text-gray-400 text-lg mb-2">저장된 스니펫이 없습니다</p>
-            <p className="text-gray-400 text-sm">학습하면서 유용한 코드를 저장해보세요!</p>
+          <div className="bg-[#F7F7F7] rounded-2xl p-10 text-center">
+            <p className="text-[#717171] text-base mb-2">저장된 스니펫이 없습니다</p>
+            <p className="text-[#717171] text-sm">학습하면서 유용한 코드를 저장해보세요</p>
           </div>
         ) : (
           <div className="space-y-4">
             {snippets.map((snippet) => (
-              <div key={snippet.id} className="bg-white rounded-lg shadow overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-3 border-b">
+              <div key={snippet.id} className="bg-[#F7F7F7] rounded-2xl overflow-hidden">
+                <div className="flex items-center justify-between px-6 py-4">
                   <div className="flex items-center gap-3">
-                    <span className="bg-gray-800 text-green-400 text-xs font-mono px-2 py-0.5 rounded">
+                    <span className="bg-[#222222] text-[#4ade80] text-xs font-mono px-2.5 py-1 rounded-lg">
                       {snippet.language}
                     </span>
-                    <h3 className="font-semibold">{snippet.title}</h3>
+                    <h3 className="font-semibold text-[#222222]">{snippet.title}</h3>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-[#717171]">
                       {new Date(snippet.created_at).toLocaleDateString("ko-KR")}
                     </span>
                     <button
                       onClick={() => handleCopy(snippet.id, snippet.code)}
-                      className="px-3 py-1 text-xs bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition"
+                      className="px-3 py-1.5 text-xs bg-white text-[#717171] rounded-lg hover:bg-[#ebebeb] transition-colors font-medium"
                     >
-                      {copiedId === snippet.id ? "복사됨!" : "복사"}
+                      {copiedId === snippet.id ? "복사됨" : "복사"}
                     </button>
                     <button
                       onClick={() => handleDelete(snippet.id)}
-                      className="px-3 py-1 text-xs bg-red-50 text-red-500 rounded hover:bg-red-100 transition"
+                      className="px-3 py-1.5 text-xs bg-[#FFF0F3] text-[#FF385C] rounded-lg hover:bg-[#ffe0e6] transition-colors font-medium"
                     >
                       삭제
                     </button>
                   </div>
                 </div>
-                <pre className="bg-gray-900 text-green-400 p-4 text-sm font-mono overflow-x-auto">
+                <pre className="bg-[#222222] text-[#4ade80] px-6 py-5 text-sm font-mono overflow-x-auto">
                   <code>{snippet.code}</code>
                 </pre>
                 {snippet.memo && (
-                  <div className="px-5 py-3 bg-gray-50 text-sm text-gray-600 border-t">
+                  <div className="px-6 py-4 text-sm text-[#717171] border-t border-[#ebebeb]">
                     {snippet.memo}
                   </div>
                 )}

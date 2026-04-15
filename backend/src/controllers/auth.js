@@ -1,21 +1,20 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import db from "../config/db.js"; // default import
+import db from "../config/db.js";
+import { JWT_SECRET } from "../middleware/auth.js";
 
 export const register = async (req, res) => {
-  const { email, password, nickname } = req.body;
+  const { email, password, nickname, role } = req.body;
+  const userRole = ["student", "instructor"].includes(role) ? role : "student";
 
   try {
     const hashed = await bcrypt.hash(password, 10);
-
     await db.query(
-      "INSERT INTO users (email, password, nickname) VALUES (?, ?, ?)",
-      [email, hashed, nickname]
+      "INSERT INTO users (email, password, nickname, role) VALUES (?, ?, ?, ?)",
+      [email, hashed, nickname, userRole]
     );
-
     res.json({ message: "회원가입 완료" });
   } catch (err) {
-    console.error(err);
     if (err.code === "ER_DUP_ENTRY") {
       return res.status(409).json({ error: "이미 존재하는 이메일입니다" });
     }
@@ -27,24 +26,21 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const [rows] = await db.query(
-      "SELECT * FROM users WHERE email = ?",
-      [email]
-    );
-
+    const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
     const user = rows[0];
     if (!user) return res.status(404).json({ error: "유저 없음" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ error: "비번 틀림" });
+    if (!isMatch) return res.status(401).json({ error: "비밀번호가 틀렸습니다" });
 
-    const token = jwt.sign({ id: user.id }, "secret", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: user.id, role: user.role },
+      JWT_SECRET,
+      { expiresIn: "7d" }
+    );
 
-    res.json({ token, nickname: user.nickname });
+    res.json({ token, nickname: user.nickname, role: user.role });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "서버 에러" });
   }
 };

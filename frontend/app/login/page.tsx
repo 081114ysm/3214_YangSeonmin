@@ -33,46 +33,61 @@ export default function LoginPage() {
         body: JSON.stringify({ email, password }),
       });
       localStorage.setItem("token", data.token);
-      router.push("/dashboard");
+      localStorage.setItem("role", data.role || "student");
+      localStorage.setItem("nickname", data.nickname || "");
+
+      if (data.role === "admin") router.push("/admin");
+      else if (data.role === "instructor") router.push("/instructor");
+      else router.push("/dashboard");
     } catch (err: any) {
       setError(err.message || "로그인 실패");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow">
-        <h1 className="text-2xl font-bold mb-6 text-center">로그인</h1>
+    <div className="min-h-screen flex items-center justify-center bg-[#F7F7F7]">
+      <div className="max-w-md w-full bg-white rounded-3xl p-10 shadow-sm">
+        <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3 text-center">
+          DEVFOCUS
+        </p>
+        <h1
+          className="text-3xl font-extrabold text-[#222222] mb-8 text-center"
+          style={{ letterSpacing: "-1px" }}
+        >
+          로그인
+        </h1>
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg">
+          <div className="mb-5 p-4 bg-[#FFF0F3] border border-[#FF385C]/20 text-[#FF385C] text-sm rounded-xl">
             {error}
           </div>
         )}
         <form className="space-y-4" onSubmit={handleSubmit}>
-          <div>
-            <input
-              type="email"
-              placeholder="이메일"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="비밀번호"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
+          <input
+            type="email"
+            placeholder="이메일"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-3 border border-[#ebebeb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF385C] text-sm"
+          />
+          <input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-4 py-3 border border-[#ebebeb] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF385C] text-sm"
+          />
+          <button
+            type="submit"
+            className="w-full bg-[#FF385C] text-white py-3 rounded-full font-semibold hover:bg-[#e0314f] transition-colors"
+          >
             로그인
           </button>
         </form>
-        <p className="mt-4 text-sm text-center text-gray-500">
-          계정이 없나요? <a href="/register" className="text-blue-500">회원가입</a>
+        <p className="mt-6 text-sm text-center text-[#717171]">
+          계정이 없나요?{" "}
+          <a href="/register" className="text-[#FF385C] font-medium">
+            회원가입
+          </a>
         </p>
       </div>
     </div>

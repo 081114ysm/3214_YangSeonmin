@@ -95,14 +95,28 @@ export default function QnAPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Q&A 게시판</h1>
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="bg-[#F7F7F7] py-16 px-8">
+        <div className="max-w-3xl mx-auto">
+          <p className="text-[#FF385C] text-xs font-extrabold tracking-[3px] uppercase mb-3">
+            Community
+          </p>
+          <h1
+            className="text-4xl font-extrabold text-[#222222]"
+            style={{ letterSpacing: "-1px" }}
+          >
+            Q&A 게시판
+          </h1>
+        </div>
+      </div>
 
-        <div className="bg-white rounded-lg shadow p-6 mb-8">
-          <h2 className="font-bold text-lg mb-4">질문 작성</h2>
+      <div className="max-w-3xl mx-auto px-8 py-10">
+        {/* Write question */}
+        <div className="bg-[#F7F7F7] rounded-2xl p-8 mb-8">
+          <h2 className="font-extrabold text-[#222222] text-lg mb-5">질문 작성</h2>
           {error && (
-            <div className="mb-3 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg">
+            <div className="mb-4 p-4 bg-[#FFF0F3] border border-[#FF385C]/20 text-[#FF385C] text-sm rounded-xl">
               {error}
             </div>
           )}
@@ -111,52 +125,53 @@ export default function QnAPage() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="제목 (2자 이상)"
-            className="w-full px-4 py-2 border rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-3 border border-[#ebebeb] rounded-xl mb-3 focus:outline-none focus:ring-2 focus:ring-[#FF385C] text-sm bg-white"
           />
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="내용을 입력하세요"
             rows={3}
-            className="w-full px-4 py-2 border rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+            className="w-full px-4 py-3 border border-[#ebebeb] rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-[#FF385C] resize-none text-sm bg-white"
           />
           <button
             onClick={handleSubmit}
-            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+            className="px-7 py-2.5 bg-[#FF385C] text-white rounded-full font-medium text-sm hover:bg-[#e0314f] transition-colors"
           >
             등록
           </button>
         </div>
 
+        {/* Question list */}
         <div className="space-y-3">
           {questions.map((q) => (
             <div key={q.id}>
               <div
                 onClick={() => loadDetail(q.id)}
-                className="bg-white p-4 rounded-lg shadow cursor-pointer hover:shadow-md transition"
+                className="bg-[#F7F7F7] rounded-2xl p-6 cursor-pointer hover:bg-[#ebebeb] transition-colors"
               >
                 <div className="flex justify-between items-start">
-                  <h3 className="font-bold text-lg">{q.title}</h3>
-                  <span className="text-sm text-gray-400">{q.nickname}</span>
+                  <h3 className="font-bold text-[#222222] text-base">{q.title}</h3>
+                  <span className="text-sm text-[#717171] shrink-0 ml-4">{q.nickname}</span>
                 </div>
-                <p className="text-gray-600 mt-1 text-sm line-clamp-2">{q.content}</p>
+                <p className="text-[#717171] mt-2 text-sm line-clamp-2">{q.content}</p>
               </div>
 
               {selectedId === q.id && detail && (
-                <div className="bg-gray-100 rounded-b-lg p-4 mt-1 space-y-3">
-                  <p className="text-gray-700">{detail.content}</p>
+                <div className="bg-white border border-[#F7F7F7] rounded-b-2xl p-6 space-y-4">
+                  <p className="text-[#717171] text-sm leading-relaxed">{detail.content}</p>
 
                   {detail.answers && detail.answers.length > 0 && (
                     <div className="space-y-2">
-                      <p className="font-semibold text-sm text-gray-500">
+                      <p className="font-semibold text-xs text-[#717171] uppercase tracking-wider">
                         답변 {detail.answers.length}개
                       </p>
                       {detail.answers.map((a) => (
-                        <div key={a.id} className="bg-white p-3 rounded shadow-sm">
-                          <div className="flex justify-between text-sm text-gray-400 mb-1">
-                            <span>{a.nickname}</span>
-                          </div>
-                          <p className="text-gray-700">{a.content}</p>
+                        <div key={a.id} className="bg-[#F7F7F7] rounded-xl p-4">
+                          <span className="text-xs font-semibold text-[#222222] block mb-1">
+                            {a.nickname}
+                          </span>
+                          <p className="text-[#717171] text-sm">{a.content}</p>
                         </div>
                       ))}
                     </div>
@@ -168,11 +183,11 @@ export default function QnAPage() {
                       value={answerContent}
                       onChange={(e) => setAnswerContent(e.target.value)}
                       placeholder="답변을 입력하세요"
-                      className="flex-1 px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="flex-1 px-4 py-2.5 border border-[#ebebeb] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF385C]"
                     />
                     <button
                       onClick={handleAnswer}
-                      className="px-4 py-2 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition"
+                      className="px-5 py-2.5 bg-[#222222] text-white text-sm rounded-full hover:bg-[#3a3a3a] transition-colors font-medium"
                     >
                       답변
                     </button>
@@ -182,10 +197,13 @@ export default function QnAPage() {
             </div>
           ))}
           {questions.length === 0 && (
-            <p className="text-gray-400 text-center py-8">아직 질문이 없습니다</p>
+            <p className="text-[#717171] text-center py-12 text-sm">아직 질문이 없습니다</p>
           )}
         </div>
       </div>
     </div>
   );
 }
+
+
+3

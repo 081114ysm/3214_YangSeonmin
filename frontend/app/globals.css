@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+:root {
+  --accent: #FF385C;
+  --accent-light: #FFF0F3;
+  --dark: #222222;
+  --gray: #717171;
+  --light-gray: #F7F7F7;
+  --bg: #ffffff;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--dark);
+  font-family: var(--font-geist-sans), 'Malgun Gothic', sans-serif;
+}

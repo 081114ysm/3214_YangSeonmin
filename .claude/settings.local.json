@@ -27,7 +27,24 @@
       "Bash(taskkill //F //IM node.exe)",
       "Bash(mysql:*)",
       "Read(//c/xampp/mysql/bin/**)",
-      "Bash(/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe:*)"
+      "Bash(/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe:*)",
+      "Bash(ls *.pdf *.md)",
+      "Bash(where chrome:*)",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=\"D:/developdlsrkd/docs/DevFocus_발표자료.pdf\" \"file:///D:/developdlsrkd/docs/presentation.html\")",
+      "Bash(where node:*)",
+      "Read(//c/Program Files \\(x86\\)/Google/Chrome/Application/**)",
+      "Bash(/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql *)",
+      "Bash(winget install *)",
+      "Bash(node *)",
+      "Bash($MYSQL *)",
+      "Bash('/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql' -u root -p081114 devfocus -e ' *)",
+      "Bash(export PATH=\"$PATH:/c/Users/User/AppData/Local/Programs/GitHub CLI\")",
+      "Bash(gh --version)",
+      "Read(//c/Program Files \\(x86\\)/**)",
+      "Bash(cmd.exe /c \"where gh 2>&1\")",
+      "Bash(\"/c/Program Files/Docker/Docker/resources/bin/docker\" info)",
+      "Bash(start \"\" \"C:\\\\Program Files\\\\Docker\\\\Docker\\\\Docker Desktop.exe\")"
     ]
   }
 }
