@@ -6,11 +6,8 @@ export const getStats = async (req, res) => {
     const [[{ courseCount }]] = await db.query("SELECT COUNT(*) as courseCount FROM courses");
     const [[{ enrollCount }]] = await db.query("SELECT COUNT(*) as enrollCount FROM enrollments");
     const [[{ questionCount }]] = await db.query("SELECT COUNT(*) as questionCount FROM questions");
-    const [[{ paymentTotal }]] = await db.query(
-      "SELECT COALESCE(SUM(amount),0) as paymentTotal FROM payments WHERE status='completed'"
-    );
 
-    res.json({ userCount, courseCount, enrollCount, questionCount, paymentTotal });
+    res.json({ userCount, courseCount, enrollCount, questionCount });
   } catch (err) {
     res.status(500).json({ error: "서버 에러" });
   }

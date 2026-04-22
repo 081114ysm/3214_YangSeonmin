@@ -22,5 +22,39 @@ backend/logs/
 .omc/sessions/
 backend/.omc/
 
+# Claude / OMC 설정 (로컬 전용)
+CLAUDE.md
+.claude/
+.omc/project-memory.json
+
+# Mac 메타데이터
+__MACOSX/
+
+# 시크릿 스크립트
+set_secrets.mjs
+
 # 기타
 *.DS_Store
+
+# 구 프로젝트 문서 (불필요)
+docs/01-project-overview.md
+docs/01.requirements.md
+docs/02-data-model.md
+docs/02.erd.md
+docs/03-api-design.md
+docs/03.seed_data.md
+docs/04-ui-design.md
+docs/04.checklist.md
+docs/05-architecture.md
+docs/05.test_plan.md
+docs/06-sample-vocabulary.md
+docs/06.subagents.md
+docs/07-implementation-checklist.md
+docs/07.implementation_log.md
+docs/08-admin-api-spec.md
+docs/08.bugfix_log.md
+docs/09-user-feature-spec.md
+docs/10-security-audit.md
+docs/bug-reports/
+docs/design/
+docs/ui/

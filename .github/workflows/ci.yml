@@ -44,6 +44,7 @@ jobs:
       - name: Run schema migration
         run: |
           mysql -h 127.0.0.1 -u root -ptestpass devfocus_test < src/config/schema.sql
+          mysql -h 127.0.0.1 -u root -ptestpass devfocus_test < src/config/schema_p2_p3.sql
         env:
           MYSQL_PWD: testpass
 
